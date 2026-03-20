@@ -1,0 +1,28 @@
+<section class="card">
+  <h2>{{ isEdit ? 'Editar' : 'Nuevo' }} post</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
+    <label>Titulo</label>
+    <input type="text" formControlName="title" />
+
+    <label>Contenido</label>
+    <textarea rows="8" formControlName="content"></textarea>
+
+    <label>Estado</label>
+    <select formControlName="status">
+      <option value="draft">Draft</option>
+      <option value="published">Published</option>
+    </select>
+
+    <label>Categorias</label>
+    <div class="categories">
+      <label *ngFor="let category of categories">
+        <input type="checkbox" [checked]="selectedCategoryIds.includes(category.id)" (change)="toggleCategory(category.id, $event)" />
+        {{ category.name }}
+      </label>
+    </div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+    <button class="primary" type="submit" [disabled]="form.invalid">Guardar</button>
+  </form>
+</section>

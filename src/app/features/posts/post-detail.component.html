@@ -1,0 +1,19 @@
+<section class="card" *ngIf="post">
+  <h2>{{ post.title }}</h2>
+  <small>Autor: {{ post.author.name }} | Estado: {{ post.status }}</small>
+  <p>{{ post.content }}</p>
+
+  <div class="actions" *ngIf="canEditPost()">
+    <a class="primary-btn" [routerLink]="['/posts', post.id, 'edit']">Editar</a>
+    <button class="danger" (click)="deletePost()">Eliminar</button>
+  </div>
+
+  <h3>Comentarios</h3>
+  <article class="comment" *ngFor="let comment of comments">
+    <p>{{ comment.content }}</p>
+    <small>{{ comment.author.name }}</small>
+    <button class="danger" (click)="deleteComment(comment.id)" *ngIf="canDeleteComment(comment)">Eliminar</button>
+  </article>
+
+  <app-comment-form *ngIf="authService.isAuthenticated()" (save)="addComment($event)"></app-comment-form>
+</section>

@@ -1,0 +1,5 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="comment-form">
+  <label>{{ label }}</label>
+  <textarea rows="3" formControlName="content"></textarea>
+  <button class="primary" type="submit" [disabled]="form.invalid">Guardar comentario</button>
+</form>

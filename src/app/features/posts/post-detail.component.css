@@ -1,0 +1,18 @@
+.actions {
+  margin: 12px 0;
+  display: flex;
+  gap: 8px;
+}
+
+.primary-btn {
+  background: #0b6bcb;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.comment {
+  border-top: 1px solid #d8dee6;
+  padding: 8px 0;
+}

@@ -1,0 +1,14 @@
+.form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.categories {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.error {
+  color: #c92a2a;
+}

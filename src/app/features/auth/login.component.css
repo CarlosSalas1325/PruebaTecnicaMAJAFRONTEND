@@ -1,0 +1,15 @@
+.auth-card {
+  max-width: 420px;
+  margin: 20px auto;
+  display: grid;
+  gap: 12px;
+}
+
+form {
+  display: grid;
+  gap: 10px;
+}
+
+.error {
+  color: #c92a2a;
+}
