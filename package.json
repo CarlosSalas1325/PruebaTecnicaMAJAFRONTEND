@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/set-env.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test"

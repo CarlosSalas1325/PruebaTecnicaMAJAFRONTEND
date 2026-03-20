@@ -1,11 +1,11 @@
 # ---- Build stage ----
 FROM node:20-alpine AS builder
 ARG API_BASE_URL
+ENV API_BASE_URL=${API_BASE_URL}
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN sed -i "s|API_BASE_URL|${API_BASE_URL}|g" src/environments/environment.ts
 RUN npm run build
 
 # ---- Production stage ----
