@@ -34,6 +34,11 @@ body {
 }
 
 .container {
+  width: min(720px, 92vw);
+  margin: 0 auto;
+}
+
+.container-wide {
   width: min(1120px, 92vw);
   margin: 0 auto;
 }

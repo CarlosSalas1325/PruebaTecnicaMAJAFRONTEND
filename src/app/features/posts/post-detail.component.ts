@@ -52,7 +52,9 @@ export class PostDetailComponent implements OnInit {
   canDeleteComment(comment: CommentItem): boolean {
     const user = this.authService.getCurrentUser();
     if (!user) return false;
-    return user.role === "admin" || user.id === comment.author.id;
+    const isCommentOwner = user.id === comment.author.id;
+    const isPostOwner = this.post ? user.id === this.post.author.id : false;
+    return user.role === "admin" || isCommentOwner || isPostOwner;
   }
 
   canEditPost(): boolean {
