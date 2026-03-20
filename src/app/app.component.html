@@ -3,7 +3,7 @@
     <a routerLink="/" class="brand">PT-Maja Blog</a>
 
     <nav>
-      <a routerLink="/" routerLinkActive="active">Posts</a>
+      <a routerLink="/" routerLinkActive="active" *ngIf="authService.isAuthenticated()">Posts</a>
       <a routerLink="/categories" routerLinkActive="active" *ngIf="authService.getCurrentUser()?.role === 'admin'">Categorias</a>
       <a routerLink="/login" *ngIf="!authService.isAuthenticated()">Login</a>
       <a routerLink="/register" *ngIf="!authService.isAuthenticated()">Registro</a>

@@ -1,19 +1,38 @@
-<section class="card" *ngIf="post">
-  <h2>{{ post.title }}</h2>
-  <small>Autor: {{ post.author.name }} | Estado: {{ post.status }}</small>
-  <p>{{ post.content }}</p>
-
-  <div class="actions" *ngIf="canEditPost()">
-    <a class="primary-btn" [routerLink]="['/posts', post.id, 'edit']">Editar</a>
-    <button class="danger" (click)="deletePost()">Eliminar</button>
+<section class="card detail-card" *ngIf="post">
+  <div class="hero-image" *ngIf="post.imageUrl">
+    <img [src]="post.imageUrl" [alt]="post.title" />
   </div>
 
-  <h3>Comentarios</h3>
-  <article class="comment" *ngFor="let comment of comments">
-    <p>{{ comment.content }}</p>
-    <small>{{ comment.author.name }}</small>
-    <button class="danger" (click)="deleteComment(comment.id)" *ngIf="canDeleteComment(comment)">Eliminar</button>
-  </article>
+  <div class="detail-body">
+    <div class="post-meta">
+      <span class="badge" [class.published]="post.status === 'published'" [class.draft]="post.status === 'draft'">
+        {{ post.status === 'published' ? 'Publicado' : 'Borrador' }}
+      </span>
+      <span class="author">Por {{ post.author.name }}</span>
+    </div>
 
-  <app-comment-form *ngIf="authService.isAuthenticated()" (save)="addComment($event)"></app-comment-form>
+    <h1>{{ post.title }}</h1>
+    <p class="content">{{ post.content }}</p>
+
+    <div class="actions" *ngIf="canEditPost()">
+      <a class="btn-edit" [routerLink]="['/posts', post.id, 'edit']">Editar</a>
+      <button class="danger" (click)="deletePost()">Eliminar</button>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="comments-section">
+    <h3>Comentarios ({{ comments.length }})</h3>
+
+    <article class="comment" *ngFor="let comment of comments">
+      <div class="comment-header">
+        <strong>{{ comment.author.name }}</strong>
+        <button class="danger comment-delete" (click)="deleteComment(comment.id)" *ngIf="canDeleteComment(comment)">Eliminar</button>
+      </div>
+      <p>{{ comment.content }}</p>
+    </article>
+
+    <app-comment-form *ngIf="authService.isAuthenticated()" (save)="addComment($event)"></app-comment-form>
+  </div>
 </section>

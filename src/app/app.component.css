@@ -1,39 +1,67 @@
 .topbar {
-  background: #0f1722;
+  background: #1e293b;
   color: #fff;
-  border-bottom: 1px solid #1f2b3b;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .topbar-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 64px;
+  min-height: 56px;
 }
 
 .brand {
   color: #fff;
   text-decoration: none;
   font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
 }
 
 nav {
   display: flex;
-  gap: 10px;
+  gap: 4px;
   align-items: center;
 }
 
 nav a {
-  color: #d7e3f4;
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 nav a.active {
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
-  font-weight: 700;
+}
+
+nav button {
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+}
+
+nav button:hover {
+  background: #b91c1c;
 }
 
 .content {
-  padding-top: 20px;
-  padding-bottom: 32px;
+  padding-top: 32px;
+  padding-bottom: 48px;
 }

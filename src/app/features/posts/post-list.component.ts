@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { Subject } from "rxjs";
+import { debounceTime } from "rxjs/operators";
 import { CategoriesService, CategoryItem } from "../../core/services/categories.service";
 import { PostItem, PostsService } from "../../core/services/posts.service";
 import { AuthService } from "../../core/services/auth.service";
@@ -13,10 +15,11 @@ import { AuthService } from "../../core/services/auth.service";
   templateUrl: "./post-list.component.html",
   styleUrl: "./post-list.component.css"
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
   posts: PostItem[] = [];
   categories: CategoryItem[] = [];
   meta = { page: 1, limit: 10, total: 0, totalPages: 1 };
+  private searchSubject = new Subject<void>();
 
   filters: Record<string, string | number> = {
     search: "",
@@ -34,6 +37,23 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoriesService.list().subscribe((categories) => (this.categories = categories));
+    this.searchSubject.pipe(debounceTime(350)).subscribe(() => {
+      this.filters.page = 1;
+      this.loadPosts();
+    });
+    this.loadPosts();
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubject.complete();
+  }
+
+  onSearchInput(): void {
+    this.searchSubject.next();
+  }
+
+  onFilterChange(): void {
+    this.filters.page = 1;
     this.loadPosts();
   }
 

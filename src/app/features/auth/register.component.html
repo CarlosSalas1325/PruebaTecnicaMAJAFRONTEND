@@ -1,17 +1,27 @@
-<section class="card auth-card">
-  <h2>Crear cuenta</h2>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <label>Nombre</label>
-    <input type="text" formControlName="name" />
-
-    <label>Email</label>
-    <input type="email" formControlName="email" />
-
-    <label>Contrasena</label>
-    <input type="password" formControlName="password" />
-
-    <p class="error" *ngIf="error">{{ error }}</p>
-    <button class="primary" type="submit" [disabled]="form.invalid || loading">Crear cuenta</button>
-  </form>
-  <p>Ya tienes cuenta? <a routerLink="/login">Inicia sesion</a></p>
-</section>
+<div class="auth-wrapper">
+  <section class="card auth-card">
+    <div class="auth-header">
+      <h2>Crear cuenta</h2>
+      <p class="subtitle">Registrate para comenzar a publicar</p>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" formControlName="name" placeholder="Tu nombre" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="tu@email.com" />
+      </div>
+      <div class="field">
+        <label>Contrasena</label>
+        <input type="password" formControlName="password" placeholder="Minimo 6 caracteres" />
+      </div>
+      <p class="error" *ngIf="error">{{ error }}</p>
+      <button class="primary" type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Creando...' : 'Crear cuenta' }}
+      </button>
+    </form>
+    <p class="link">Ya tienes cuenta? <a routerLink="/login">Inicia sesion</a></p>
+  </section>
+</div>

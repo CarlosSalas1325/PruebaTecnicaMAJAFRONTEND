@@ -1,35 +1,48 @@
-<section class="card">
+<section>
   <div class="toolbar">
     <h2>Publicaciones</h2>
-    <a class="primary-btn" routerLink="/posts/new" *ngIf="authService.isAuthenticated()">Nuevo post</a>
+    <a class="btn-new" routerLink="/posts/new" *ngIf="authService.isAuthenticated()">+ Nuevo post</a>
   </div>
 
-  <div class="filters">
-    <input [(ngModel)]="filters.search" placeholder="Buscar por titulo o contenido" />
-    <select [(ngModel)]="filters.status">
-      <option value="">Todos</option>
-      <option value="draft">Draft</option>
-      <option value="published">Published</option>
+  <div class="card filters">
+    <input [(ngModel)]="filters.search" placeholder="Buscar por titulo o contenido..." (input)="onSearchInput()" />
+    <select [(ngModel)]="filters.status" (ngModelChange)="onFilterChange()">
+      <option value="">Todos los estados</option>
+      <option value="draft">Borrador</option>
+      <option value="published">Publicado</option>
     </select>
-    <select [(ngModel)]="filters.categoryId">
+    <select [(ngModel)]="filters.categoryId" (ngModelChange)="onFilterChange()">
       <option value="">Todas las categorias</option>
       <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
     </select>
-    <button class="primary" (click)="loadPosts()">Aplicar</button>
+    <button class="primary" (click)="loadPosts()">Buscar</button>
   </div>
 
-  <article class="post" *ngFor="let post of posts">
-    <h3><a [routerLink]="['/posts', post.id]">{{ post.title }}</a></h3>
-    <p>{{ post.content.slice(0, 160) }}...</p>
-    <small>
-      Autor: {{ post.author.name }} | Estado: {{ post.status }} | Categorias:
-      {{ getCategoryNames(post) }}
-    </small>
-  </article>
+  <div class="post-grid">
+    <article class="card post-card" *ngFor="let post of posts">
+      <div class="post-image" *ngIf="post.imageUrl">
+        <img [src]="post.imageUrl" [alt]="post.title" />
+      </div>
+      <div class="post-image placeholder" *ngIf="!post.imageUrl">
+        <span>Sin imagen</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="badge" [class.published]="post.status === 'published'" [class.draft]="post.status === 'draft'">
+            {{ post.status === 'published' ? 'Publicado' : 'Borrador' }}
+          </span>
+          <span class="category-tag" *ngFor="let cat of post.categories">{{ cat.name }}</span>
+        </div>
+        <h3><a [routerLink]="['/posts', post.id]">{{ post.title }}</a></h3>
+        <p class="excerpt">{{ post.content.slice(0, 140) }}...</p>
+        <small class="author">Por {{ post.author.name }}</small>
+      </div>
+    </article>
+  </div>
 
-  <div class="pagination">
-    <button (click)="previousPage()" [disabled]="meta.page <= 1">Anterior</button>
-    <span>Pagina {{ meta.page }} / {{ meta.totalPages || 1 }}</span>
-    <button (click)="nextPage()" [disabled]="meta.page >= meta.totalPages">Siguiente</button>
+  <div class="pagination" *ngIf="meta.totalPages > 1">
+    <button (click)="previousPage()" [disabled]="meta.page <= 1">&#8592; Anterior</button>
+    <span>Pagina {{ meta.page }} de {{ meta.totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="meta.page >= meta.totalPages">Siguiente &#8594;</button>
   </div>
 </section>

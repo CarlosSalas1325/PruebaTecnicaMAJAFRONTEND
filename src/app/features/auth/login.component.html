@@ -1,14 +1,37 @@
-<section class="card auth-card">
-  <h2>Iniciar sesion</h2>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <label>Email</label>
-    <input type="email" formControlName="email" />
+<div class="auth-wrapper">
+  <div class="auth-stack">
+    <section class="card auth-card">
+      <div class="auth-header">
+        <h2>Iniciar sesion</h2>
+        <p class="subtitle">Ingresa tus credenciales para continuar</p>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="tu@email.com" />
+        </div>
+        <div class="field">
+          <label>Contrasena</label>
+          <input type="password" formControlName="password" placeholder="••••••" />
+        </div>
+        <p class="error" *ngIf="error">{{ error }}</p>
+        <button class="primary" type="submit" [disabled]="form.invalid || loading">
+          {{ loading ? 'Ingresando...' : 'Entrar' }}
+        </button>
+      </form>
+      <p class="link">No tienes cuenta? <a routerLink="/register">Registrate</a></p>
+    </section>
 
-    <label>Contrasena</label>
-    <input type="password" formControlName="password" />
-
-    <p class="error" *ngIf="error">{{ error }}</p>
-    <button class="primary" type="submit" [disabled]="form.invalid || loading">Entrar</button>
-  </form>
-  <p>No tienes cuenta? <a routerLink="/register">Registrate</a></p>
-</section>
+    <div class="demo-card">
+      <p class="demo-title">Credenciales de prueba</p>
+      <div class="demo-row">
+        <span class="demo-label">Email</span>
+        <code>admin&#64;blog.local</code>
+      </div>
+      <div class="demo-row">
+        <span class="demo-label">Contrasena</span>
+        <code>Admin123!</code>
+      </div>
+    </div>
+  </div>
+</div>

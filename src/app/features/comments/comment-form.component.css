@@ -1,5 +1,15 @@
 .comment-form {
   display: grid;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+
+.comment-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
 }

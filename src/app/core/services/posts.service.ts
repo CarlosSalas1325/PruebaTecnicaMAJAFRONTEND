@@ -8,6 +8,7 @@ export interface PostItem {
   title: string;
   content: string;
   status: "draft" | "published";
+  imageUrl?: string;
   createdAt: string;
   author: { id: string; name: string; email: string };
   categories: { id: string; name: string }[];
@@ -40,11 +41,11 @@ export class PostsService {
     return this.http.get<PostItem>(`${this.api.baseUrl}/posts/${id}`);
   }
 
-  create(payload: { title: string; content: string; status: string; categoryIds: string[] }): Observable<PostItem> {
+  create(payload: { title: string; content: string; status: string; categoryIds: string[]; imageUrl?: string }): Observable<PostItem> {
     return this.http.post<PostItem>(`${this.api.baseUrl}/posts`, payload);
   }
 
-  update(id: string, payload: { title?: string; content?: string; status?: string; categoryIds?: string[] }): Observable<PostItem> {
+  update(id: string, payload: { title?: string; content?: string; status?: string; categoryIds?: string[]; imageUrl?: string }): Observable<PostItem> {
     return this.http.patch<PostItem>(`${this.api.baseUrl}/posts/${id}`, payload);
   }
 
