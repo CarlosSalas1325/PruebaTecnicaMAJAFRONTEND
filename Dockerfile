@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN sed -i "s|__API_BASE_URL__|${API_BASE_URL}|g" src/environments/environment.ts
+RUN sed -i "s|API_BASE_URL|${API_BASE_URL}|g" src/environments/environment.ts
 RUN npm run build
 
 # ---- Production stage ----
