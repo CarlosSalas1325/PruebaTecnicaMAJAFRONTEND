@@ -2,6 +2,25 @@
 
 Frontend del blog PT-Maja construido con Angular 18 y standalone components.
 
+## Configuracion del archivo `.env`
+
+Antes de levantar cualquier servicio crea el archivo `.env` en este directorio con el siguiente contenido:
+
+```env
+# Frontend
+FRONTEND_PORT=4200
+# Si el backend corre localmente:
+API_BASE_URL=http://localhost:3000/api
+# Si el backend esta desplegado en Railway u otro servicio:
+# API_BASE_URL=https://your-backend.up.railway.app/api
+```
+
+O copia el archivo de ejemplo:
+
+```bash
+cp .env.example .env
+```
+
 ## Stack
 
 | Tecnologia | Version |
